@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-row-reverse">
       <div class="col container">
-        <img v-if="!searched" src="..\assets\home-bg.png" alt="" />
+        <img style=" overflow: auto;" v-if="!searched" src="..\assets\home-bg.png" alt="" />
 
         <div v-if="searched" class="flex grid grid-cols-4 gap-4 p-5 m-5">
           <!-- card -->
@@ -14,6 +14,7 @@
           <!-- card -->
         </div>
       </div>
+
       <div class="flex col">
         <div class="flex items-center justift-center">
           <div>
@@ -34,9 +35,7 @@
                     <button type="submit">search</button>
                   </form>
                   <div class="absolute top-4 right-3"></div>
-                  <i
-                    class="fa fa-search text-gray-400 z-20 hover:text-gray-500"
-                  ></i>
+
                 </div>
               </div>
             </div>
@@ -68,13 +67,12 @@ export default {
     ...mapActions(["findRecipes"]),
     async searchrecipe() {
       await this.findRecipes(this.searchInput);
-      console.log(this.recipes, '<)<)<)<)<)<)<)');
       if (this.recipes.length === 0) {
         this.searched = false;
       } else {
         this.searched = true;
       }
-    },
+    }
   },
   created() {},
 };

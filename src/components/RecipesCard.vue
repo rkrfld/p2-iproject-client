@@ -13,11 +13,11 @@
           {{ item.strDrink }}
         </h5>
       </a>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far,
-        in reverse chronological order.
+      <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">
+        Type: <span class="font-bold text-gray-700 dark:text-gray-400">{{item.strAlcoholic}}</span>
       </p>
       <a
+      @click.prevent='toDetail(item.idDrink)'
         href="#"
         class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
@@ -40,9 +40,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: "RecipesCard",
-  props: ["item"]
+  props: ["item"],
+  methods: {
+    ...mapActions(['findOneRecipes']),
+    toDetail(idDrink) {
+      this.$router.push({name: 'Detail', params:{id: idDrink}})
+      this.findOneRecipes(idDrink)
+    }
+  },
 };
 </script>
 

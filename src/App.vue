@@ -1,7 +1,7 @@
 <template>
   <div>
     <div >
-      <navbar ></navbar>
+      <navbar></navbar>
     </div>
     <div>
       <router-link to="/login" />

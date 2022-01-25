@@ -6,8 +6,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: false,
+    isLogin: true,
     recipes: [],
+    recipeDetail: [],
   },
   mutations: {
     MUTATE_ISLOGIN(state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     MUTATE_RECIPES(state, payload) {
       state.recipes = payload
+    },
+    MUTATE_DETAIL(state, payload) {
+      state.recipeDetail = payload
     },
   },
   actions: {
@@ -43,6 +47,8 @@ export default new Vuex.Store({
         const result = await axios.post('http://localhost:3300/account/login', value)
 
         localStorage.access_token = result.data.access_token;
+        localStorage.username = result.data.username;
+        localStorage.avatar = result.data.avatar;
         context.commit('MUTATE_ISLOGIN', true)
 
         localStorage.acces
@@ -51,11 +57,27 @@ export default new Vuex.Store({
       }
     },
 
+    doLogout(context) {
+      localStorage.clear();
+      context.commit('MUTATE_ISLOGIN', false)
+    },
+
     async findRecipes(context, payload) {
       try {
         const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${payload}`)
        
         context.commit('MUTATE_RECIPES', result.data.drinks)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async findOneRecipes(context, payload) {
+      try {
+        const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${payload}`)
+
+        console.log(result.data.drinks[0]);
+        context.commit('MUTATE_DETAIL', result.data.drinks[0])
       } catch (err) {
         console.log(err);
       }
