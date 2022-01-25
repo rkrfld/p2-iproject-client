@@ -1,8 +1,16 @@
 <template>
   <div>
     <div class="flex flex-row-reverse">
-      <div class="col">
-        <img src="..\assets\home-bg.png" alt="" />
+      <div class="col container">
+        <img v-if="!searched" src="..\assets\home-bg.png" alt="" />
+
+        <div v-if="searched" class="flex grid grid-cols-4 gap-4 p-5 m-5">
+          <!-- card -->
+          
+            <recipes-card></recipes-card>
+          
+          <!-- card -->
+        </div>
       </div>
       <div class="flex col">
         <div class="flex items-center justift-center">
@@ -15,6 +23,7 @@
               <div class="border-y-2 border-y-stone-200">
                 <div class="relative">
                   <input
+                    v-model="searchInput"
                     class="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
                     type="text"
                     placeholder="Search recipes..."
@@ -34,13 +43,32 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import RecipesCard from "../components/RecipesCard.vue";
 export default {
   name: "Home",
+  components: {
+    RecipesCard,
+  },
+  data() {
+    return {
+      searchInput: "",
+      searched: true,
+    };
+  },
+  computed: {
+    ...mapState(['recipes'])
+  },
+  created() {
+    if (this.recipes.length === 0) {
+      this.searched = false
+    } else {
+      this.searched = true
+
+    }
+  },
 };
 </script>
-
-// .layered-image { // background: linear-gradient(to right, transparent,
-mistyrose), // url("critters.png"); // } // 1475 978
 
 <style>
 #gradient {
