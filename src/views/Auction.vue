@@ -1,12 +1,18 @@
 <template>
   <div>
-    auction page
+    <div>
+      <auction-card></auction-card>
+    </div>
   </div>
 </template>
 
 <script>
+import AuctionCard from '../components/AuctionCard.vue'
 export default {
-  name: "Auction"
+  name: "Auction",
+  components: {
+    AuctionCard
+  }
 }
 </script>
 
