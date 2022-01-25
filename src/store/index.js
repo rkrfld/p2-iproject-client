@@ -7,10 +7,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    recipes: [],
   },
   mutations: {
     MUTATE_ISLOGIN(state, payload) {
       state.isLogin = payload
+    },
+    MUTATE_RECIPES(state, payload) {
+      state.recipes = payload
     },
   },
   actions: {
@@ -42,6 +46,16 @@ export default new Vuex.Store({
         context.commit('MUTATE_ISLOGIN', true)
 
         localStorage.acces
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async findRecipes(context, payload) {
+      try {
+        const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${payload}`)
+       
+        context.commit('MUTATE_RECIPES', result.data.drinks)
       } catch (err) {
         console.log(err);
       }

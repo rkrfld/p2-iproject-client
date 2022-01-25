@@ -6,9 +6,11 @@
 
         <div v-if="searched" class="flex grid grid-cols-4 gap-4 p-5 m-5">
           <!-- card -->
+
           
-            <recipes-card></recipes-card>
-          
+          <div v-for="item in recipes" :key='item.idDrink'>
+            <recipes-card :item="item" ></recipes-card>
+          </div>
           <!-- card -->
         </div>
       </div>
@@ -22,12 +24,15 @@
 
               <div class="border-y-2 border-y-stone-200">
                 <div class="relative">
-                  <input
-                    v-model="searchInput"
-                    class="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-                    type="text"
-                    placeholder="Search recipes..."
-                  />
+                  <form class="flex" action="" @submit.prevent="searchrecipe">
+                    <input
+                      v-model="searchInput"
+                      class="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
+                      type="text"
+                      placeholder="Search recipes..."
+                    />
+                    <button type="submit">search</button>
+                  </form>
                   <div class="absolute top-4 right-3"></div>
                   <i
                     class="fa fa-search text-gray-400 z-20 hover:text-gray-500"
@@ -43,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 import RecipesCard from "../components/RecipesCard.vue";
 export default {
   name: "Home",
@@ -53,20 +58,25 @@ export default {
   data() {
     return {
       searchInput: "",
-      searched: true,
+      searched: false,
     };
   },
   computed: {
-    ...mapState(['recipes'])
+    ...mapState(["recipes"]),
   },
-  created() {
-    if (this.recipes.length === 0) {
-      this.searched = false
-    } else {
-      this.searched = true
-
-    }
+  methods: {
+    ...mapActions(["findRecipes"]),
+    async searchrecipe() {
+      await this.findRecipes(this.searchInput);
+      console.log(this.recipes, '<)<)<)<)<)<)<)');
+      if (this.recipes.length === 0) {
+        this.searched = false;
+      } else {
+        this.searched = true;
+      }
+    },
   },
+  created() {},
 };
 </script>
 
