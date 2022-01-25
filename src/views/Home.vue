@@ -2,9 +2,9 @@
   <div>
     <div class="flex flex-row-reverse">
       <div class="col container">
-        <img hidden src="..\assets\home-bg.png" alt="" />
+        <img v-if="!searched" src="..\assets\home-bg.png" alt="" />
 
-        <div class="flex grid grid-cols-4 gap-4 p-5 m-5">
+        <div v-if="searched" class="flex grid grid-cols-4 gap-4 p-5 m-5">
           <!-- card -->
           
             <recipes-card></recipes-card>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import RecipesCard from "../components/RecipesCard.vue";
 export default {
   name: "Home",
@@ -52,7 +53,19 @@ export default {
   data() {
     return {
       searchInput: "",
+      searched: true,
     };
+  },
+  computed: {
+    ...mapState(['recipes'])
+  },
+  created() {
+    if (this.recipes.length === 0) {
+      this.searched = false
+    } else {
+      this.searched = true
+
+    }
   },
 };
 </script>

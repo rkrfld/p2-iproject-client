@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    recipes: [1,2],
   },
   mutations: {
     MUTATE_ISLOGIN(state, payload) {
