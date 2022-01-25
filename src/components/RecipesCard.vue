@@ -42,10 +42,7 @@
 <script>
 export default {
   name: "RecipesCard",
-<<<<<<< HEAD
-=======
   props: ["item"]
->>>>>>> eab9e8bfd4932cd81efb2d6986f5fe81eaf9b495
 };
 </script>
 
