@@ -92,14 +92,9 @@
                 <a
                   href="#"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >Forum</a
+                  >Auction</a
                 >
 
-                <a
-                  href="#"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >Find a Bar</a
-                >
               </div>
             </div>
           </div>

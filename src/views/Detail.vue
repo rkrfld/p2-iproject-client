@@ -7,7 +7,7 @@
 
       <div class="flex col">
         <div class="flex flex-col">
-          <div>
+          <div class="text-7xl font-bold" id="title">
             {{ recipeDetail.strDrink }}
           </div>
           <div>
@@ -29,16 +29,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "Detail",
   computed: {
     ...mapState(["recipeDetail"]),
   },
+  methods: {
+    ...mapActions(['findOneRecipes'])
+  },
   created() {
-    console.log(this.recipeDetail);
+    const idDrink = this.$route.params.id
+    this.findOneRecipes(idDrink)
   },
 };
 </script>
 
-<style></style>
+<style>
+#title {
+  color: #1F2937;
+}
+</style>
