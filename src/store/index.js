@@ -6,9 +6,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: false,
+    isLogin: true,
     recipes: [],
     recipeDetail: [],
+    auctionItem: [],
+    url: '',
+    history: [],
+    favorites: []
   },
   mutations: {
     MUTATE_ISLOGIN(state, payload) {
@@ -19,6 +23,18 @@ export default new Vuex.Store({
     },
     MUTATE_DETAIL(state, payload) {
       state.recipeDetail = payload
+    },
+    MUTATE_AUCTIONITEM(state, payload) {
+      state.auctionItem = payload
+    },
+    MUTATE_URL(state, payload) {
+      state.url = payload
+    },
+    MUTATE_ORDERHISTORY(state, payload) {
+      state.history = payload
+    },
+    MUTATE_FAVORITES(state, payload) {
+      state.favorites = payload
     },
   },
   actions: {
@@ -65,7 +81,7 @@ export default new Vuex.Store({
     async findRecipes(context, payload) {
       try {
         const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${payload}`)
-       
+
         context.commit('MUTATE_RECIPES', result.data.drinks)
       } catch (err) {
         console.log(err);
@@ -76,13 +92,89 @@ export default new Vuex.Store({
       try {
         const result = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${payload}`)
 
-        console.log(result.data.drinks[0]);
         context.commit('MUTATE_DETAIL', result.data.drinks[0])
       } catch (err) {
         console.log(err);
       }
-    }
+    },
 
+    async fetchAuctionItem(context) {
+      try {
+        const result = await axios.get('http://localhost:3300/auction/', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        context.commit('MUTATE_AUCTIONITEM', result.data)
+
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async placeBid(context, payload) {
+      try {
+        await axios.patch(`http://localhost:3300/auction/${payload.id}`, payload, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async buyItNow(context, payload) {
+      try {
+        const result = await axios.post(`http://localhost:3300/auction/payment/${payload}`, {}, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        context.commit('MUTATE_URL', result.data.redirect_url)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchOrderHistory(context) {
+      try {
+        const result = await axios.get('http://localhost:3300/auction/orderHistory', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        context.commit('MUTATE_ORDERHISTORY', result.data)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async addToFavo(context, payload) {
+      try {
+        await axios.post('http://localhost:3300/favorite/addtofavo', payload, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchFavorite(context) {
+      try {
+        const result = await axios.get('http://localhost:3300/favorite/', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        context.commit('MUTATE_FAVORITES', result.data)
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   modules: {
   }

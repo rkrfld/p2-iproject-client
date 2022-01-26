@@ -4,7 +4,10 @@ import LoginRegis from '../views/LoginRegister.vue'
 import Home from '../views/Home.vue'
 import Detail from '../views/Detail.vue'
 import Auction from '../views/Auction.vue'
-
+import FinishPayment from '../views/FinishPayment.vue'
+import History from '../views/History.vue'
+import Favorite from '../views/Favorite.vue'
+import FavorDetail from '../views/FavorDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +37,26 @@ const routes = [
     name: 'Auction',
     component: Auction
   },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: FinishPayment
+  },
+  {
+    path: '/orderhistory',
+    name: 'History',
+    component: History
+  },
+  {
+    path: '/favorite',
+    name: 'Favorite',
+    component: Favorite
+  },
+  {
+    path: '/favoritedetail/:id',
+    name: 'FavoriteDetail',
+    component: FavorDetail
+  }
 ]
 
 const router = new VueRouter({

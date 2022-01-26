@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div>
-      <auction-card></auction-card>
+    <div class="m-10 flex">
+      <div v-for="item in auctionItem" :key="item.id">
+        <auction-card :item="item"></auction-card>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AuctionCard from '../components/AuctionCard.vue'
+import { mapActions, mapState } from "vuex";
+import AuctionCard from "../components/AuctionCard.vue";
 export default {
   name: "Auction",
   components: {
-    AuctionCard
-  }
-}
+    AuctionCard,
+  },
+  computed: {
+    ...mapState(["auctionItem"]),
+  },
+  methods: {
+    ...mapActions(["fetchAuctionItem"]),
+  },
+  created() {
+    this.fetchAuctionItem();
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

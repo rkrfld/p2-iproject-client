@@ -7,6 +7,13 @@
       <router-link to="/login" />
     </div>
     <router-view />
+
+
+    <!-- chat -->
+    <div id="ChitchatWidget"></div>
+    <!-- chat -->
+
+
   </div>
 </template>
 
@@ -21,6 +28,10 @@ export default {
     
   },
 };
+
+
+
+
 </script>
 
 <style></style>

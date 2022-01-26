@@ -16,6 +16,7 @@
       <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">
         Type: <span class="font-bold text-gray-700 dark:text-gray-400">{{item.strAlcoholic}}</span>
       </p>
+      
       <a
       @click.prevent='toDetail(item.idDrink)'
         href="#"
