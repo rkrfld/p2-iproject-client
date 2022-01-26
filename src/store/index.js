@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: true,
+    isLogin: false,
     recipes: [],
     recipeDetail: [],
     auctionItem: [],
@@ -46,7 +46,7 @@ export default new Vuex.Store({
           username: payload.username
         }
 
-        await axios.post('http://localhost:3300/account/register', value)
+        await axios.post('https://tipsytips.herokuapp.com/account/register', value)
 
       } catch (err) {
         console.log(err);
@@ -60,7 +60,7 @@ export default new Vuex.Store({
           password: payload.password
         }
 
-        const result = await axios.post('http://localhost:3300/account/login', value)
+        const result = await axios.post('https://tipsytips.herokuapp.com/account/login', value)
 
         localStorage.access_token = result.data.access_token;
         localStorage.username = result.data.username;
@@ -100,7 +100,7 @@ export default new Vuex.Store({
 
     async fetchAuctionItem(context) {
       try {
-        const result = await axios.get('http://localhost:3300/auction/', {
+        const result = await axios.get('https://tipsytips.herokuapp.com/auction/', {
           headers: {
             access_token: localStorage.access_token
           }
@@ -114,7 +114,7 @@ export default new Vuex.Store({
 
     async placeBid(context, payload) {
       try {
-        await axios.patch(`http://localhost:3300/auction/${payload.id}`, payload, {
+        await axios.patch(`https://tipsytips.herokuapp.com/auction/${payload.id}`, payload, {
           headers: {
             access_token: localStorage.access_token
           }
@@ -126,7 +126,7 @@ export default new Vuex.Store({
 
     async buyItNow(context, payload) {
       try {
-        const result = await axios.post(`http://localhost:3300/auction/payment/${payload}`, {}, {
+        const result = await axios.post(`https://tipsytips.herokuapp.com/auction/payment/${payload}`, {}, {
           headers: {
             access_token: localStorage.access_token
           }
@@ -139,7 +139,7 @@ export default new Vuex.Store({
 
     async fetchOrderHistory(context) {
       try {
-        const result = await axios.get('http://localhost:3300/auction/orderHistory', {
+        const result = await axios.get('https://tipsytips.herokuapp.com/auction/orderHistory', {
           headers: {
             access_token: localStorage.access_token
           }
@@ -153,7 +153,7 @@ export default new Vuex.Store({
 
     async addToFavo(context, payload) {
       try {
-        await axios.post('http://localhost:3300/favorite/addtofavo', payload, {
+        await axios.post('https://tipsytips.herokuapp.com/favorite/addtofavo', payload, {
           headers: {
             access_token: localStorage.access_token
           }
@@ -165,7 +165,7 @@ export default new Vuex.Store({
 
     async fetchFavorite(context) {
       try {
-        const result = await axios.get('http://localhost:3300/favorite/', {
+        const result = await axios.get('https://tipsytips.herokuapp.com/favorite/', {
           headers: {
             access_token: localStorage.access_token
           }
