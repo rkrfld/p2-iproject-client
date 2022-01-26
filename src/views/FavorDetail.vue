@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mx-auto my-10 justify-center px-2 sm:px-6 lg:px-8">
+   <div class="flex mx-auto my-10 justify-center px-2 sm:px-6 lg:px-8">
     <div class="flex flex-row">
       <div class="flex col">
         <img :src="recipeDetail.strDrinkThumb" alt="" />
@@ -78,10 +78,10 @@
 
           <div class="font-mediun text-gray-50 text-xl">
             <a
-            @click.prevent="addToList"
+            @click.prevent="backToFavorite"
               class="inline-flex m-2 ml-0 items-center py-2 px-3 text-sm font-medium text-justify text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
             >
-              Add to your recipes bookmark
+              Back to favorite
             </a>
           </div>
         </div>
@@ -98,22 +98,15 @@ export default {
     ...mapState(["recipeDetail"]),
   },
   methods: {
-    ...mapActions(["findOneRecipes", "addToFavo"]),
-    async addToList() {
-      let data = {
-        idDrink: this.recipeDetail.idDrink,
-        name: this.recipeDetail.strDrink,
-        category: this.recipeDetail.strCategory,
-        type: this.recipeDetail.strAlcoholic,
-      }
-      await this.addToFavo(data)
-      this.$router.push({name: 'Favorite'})
+    ...mapActions(["findOneRecipes"]),
+    backToFavorite() {
+      this.$router.push({name: "Favorite"})
     }
+    
   },
   created() {
     const idDrink = this.$route.params.id;
     this.findOneRecipes(idDrink);
-
   },
 };
 </script>

@@ -67,7 +67,7 @@
               <button
                 @click="changeToRegister"
                 v-show="!registerPage"
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-center text-white text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-center text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
               >
                 Sign Up
               </button>
@@ -76,7 +76,7 @@
               <button
                 @click="changeToLogin"
                 v-show="registerPage"
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-center text-white text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-center text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
               >
                 Sign In
               </button>
@@ -86,7 +86,7 @@
 
             <div class="flex items-center justify-center gap-4">
               <button
-                class="flex items-center justify-center w-full px-4 py-2 text-sm text-white text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
+                class="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:border-gray-500 focus:border-gray-500"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,12 +167,21 @@ export default {
 
     async buttonLoginRegister() {
       if (this.registerPage) {
-        await this.doRegister(this.credential);
-        this.changeToLogin()
+        try {
+          await this.doRegister(this.credential);
+          this.changeToLogin()
+          
+        } catch (err) {
+          console.log(err);
+        }
       } else if(!this.registerPage) {
-        await this.doLogin(this.credential);
-        this.$router.push('/')
-
+        try {
+          await this.doLogin(this.credential);
+          this.$router.push('/')
+          
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
   },

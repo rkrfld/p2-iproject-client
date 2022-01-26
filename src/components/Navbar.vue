@@ -65,18 +65,16 @@
               <img
                 class="block lg:hidden h-8 w-auto"
                 src="..\assets\tipsytip-logos_transparent_white.png"
-                
               />
               <img
                 class="hidden lg:block h-12 w-auto"
                 src="..\assets\tipsytip-logos_transparent_white.png"
-                
               />
             </div>
             <div class="flex hidden sm:block sm:ml-6 items-center mt-2">
               <div v-if="isLogin" class="flex space-x-4">
-
                 <a
+                  @click.prevent="toHome"
                   href="#"
                   class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                   aria-current="page"
@@ -84,24 +82,31 @@
                 >
 
                 <a
+                @click.prevent="toFavorite"
                   href="#"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >My Recipes</a
+                  >Favorite</a
                 >
 
                 <a
+                  @click.prevent="toAuction"
                   href="#"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >Auction</a
                 >
-
+                <a
+                  @click.prevent="toOrderHistory"
+                  href="#"
+                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >Order History</a
+                >
               </div>
             </div>
           </div>
 
           <a
-          v-if="isLogin"
-            @click.prevent='actionLogout'
+            v-if="isLogin"
+            @click.prevent="actionLogout"
             class="text-gray-300 cursor-pointer hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >Sign Out</a
           >
@@ -111,7 +116,6 @@
             v-if="isLogin"
             class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
-
             <!-- Profile dropdown -->
             <div class="ml-3 relative">
               <div>
@@ -121,45 +125,50 @@
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
-                > 
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    :src="ava"
-                    alt=""
-                  />
+                >
+                  <img class="h-8 w-8 rounded-full" :src="ava" alt="" />
                 </button>
               </div>
-              
             </div>
           </div>
         </div>
       </div>
-      
     </nav>
   </section>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Navbar",
   data() {
     return {
-      ava: localStorage.avatar
-    }
+      ava: localStorage.avatar,
+    };
   },
   computed: {
-    ...mapState(['isLogin'])
+    ...mapState(["isLogin"]),
   },
   methods: {
-    ...mapActions(['doLogout']),
+    ...mapActions(["doLogout"]),
+    toHome() {
+      this.$router.push("/");
+    },
+    toAuction() {
+      this.$router.push("/auction");
+    },
+    toFavorite() {
+      this.$router.push("/favorite");
+    },
     actionLogout() {
-      this.doLogout()
-      this.$router.push('/login')
-    }
+      this.doLogout();
+      this.$router.push("/login");
+    },
+    toOrderHistory() {
+      this.$router.push("/orderhistory");
+    },
   },
-  
 };
 </script>
 
