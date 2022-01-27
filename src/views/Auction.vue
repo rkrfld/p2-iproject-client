@@ -2,7 +2,7 @@
   <div>
     <div class="m-10 flex">
       <div v-for="item in auctionItem" :key="item.id">
-        <auction-card :item="item"></auction-card>
+        <auction-card :highestBid='item.currentBid' :item="item"></auction-card>
       </div>
     </div>
   </div>

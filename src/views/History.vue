@@ -27,7 +27,7 @@
                 
               </tr>
             </thead>
-            <tbody v-for="data in favorites" :key="data.idDrink">
+            <tbody v-for="data in history" :key="data.idDrink">
               <!-- Product 1 -->
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -69,6 +69,7 @@ export default {
     ...mapActions(['fetchOrderHistory'])
   },created() {
     this.fetchOrderHistory()
+
   },
 };
 </script>
@@ -77,22 +78,3 @@ export default {
 
 
 
-<div>
-    history table
-    <table>
-      <thead>
-        <tr>
-          <th>Order Id</th>
-          <th>Item Id</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody v-for="data in history" :key="data.id">
-        <tr>
-          <td>{{data.order_id}}</td>
-          <td>{{data.AuctionId}}</td>
-          <td>{{data.status}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>

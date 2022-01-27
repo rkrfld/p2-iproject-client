@@ -26,7 +26,7 @@
       <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">
         Highest Bid:
         <span class="font-bold text-gray-700 dark:text-gray-400"
-          >Rp. {{ item.currentBid }}</span
+          >Rp. {{ highestBid }}</span
         >
       </p>
 
@@ -59,10 +59,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
   name: "AuctionCard",
-  props: ["item"],
+  props: ["item", "highestBid"],
   data() {
     return {
       bid: this.item.currentBid
@@ -70,6 +70,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['url']),
     convertDate() {
       let newDate = this.item.dueDate.slice(8, 10) + "-" + this.item.dueDate.slice(5, 7) + '-' + this.item.dueDate.slice(0, 4)
       return newDate
@@ -84,6 +85,7 @@ export default {
           amount: +this.bid
         };
         await this.placeBid(data)
+        await this.fetchAuctionItem()
         
       } catch (err) {
         console.log(err);
@@ -93,8 +95,10 @@ export default {
 
     async actionBuynow(id) {
       try {
+        console.log("before await");
         await this.buyItNow(id)
-        this.$router.push('/payment')
+
+          location.replace(this.url)
         
       } catch (err) {
         console.log(err);

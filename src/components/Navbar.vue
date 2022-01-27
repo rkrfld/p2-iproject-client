@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   name: "Navbar",
@@ -152,6 +152,7 @@ export default {
   },
   methods: {
     ...mapActions(["doLogout"]),
+    ...mapMutations(['MUTATE_ISLOGIN']),
     toHome() {
       this.$router.push("/");
     },
@@ -168,6 +169,11 @@ export default {
     toOrderHistory() {
       this.$router.push("/orderhistory");
     },
+  },
+  created() {
+    if (localStorage.access_token) {
+      this.MUTATE_ISLOGIN(true)
+    }
   },
 };
 </script>
